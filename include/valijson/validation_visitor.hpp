@@ -8,6 +8,7 @@
 #include <valijson/adapters/std_string_adapter.hpp>
 #include <valijson/constraints/concrete_constraints.hpp>
 #include <valijson/constraints/constraint_visitor.hpp>
+#include <valijson/internal/default_helper.hpp>
 #include <utility>
 #include <valijson/validation_results.hpp>
 
@@ -1437,6 +1438,9 @@ private:
 
         bool operator()(unsigned int index, const Subschema *subschema) const
         {
+            if (subschema->hasDefault()) {
+                ResizeHelper<AdapterType>()(m_arr, index);
+            }
             // Check that there are more elements to validate
             if (index >= m_arr.size()) {
                 return false;
@@ -1679,6 +1683,10 @@ private:
         bool operator()(const StringType &propertyName, const Subschema *subschema) const
         {
             const std::string propertyNameKey(propertyName.c_str());
+            if (subschema->hasDefault()) {
+                CreateKeyHelper<AdapterType>()(m_object, propertyNameKey);
+            }
+
             const typename AdapterType::Object::const_iterator itr = m_object.find(propertyNameKey);
             if (itr == m_object.end()) {
                 return m_continueIfUnmatched;
