@@ -244,6 +244,7 @@ public:
         return new QtJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -686,6 +687,11 @@ struct AdapterTraits<valijson::adapters::QtJsonAdapter>
         return "QtJsonAdapter";
     }
 };
+
+inline void QtJsonFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(QtJsonAdapter(m_value));
+}
 
 inline bool QtJsonFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

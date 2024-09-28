@@ -4,6 +4,8 @@
 #include <sstream>
 
 #include <valijson/internal/adapter.hpp>
+#include <valijson/internal/default_helper.hpp>
+#include <valijson/internal/frozen_value.hpp>
 #include <valijson/internal/optional.hpp>
 #include <valijson/exceptions.hpp>
 
@@ -848,6 +850,14 @@ public:
         }
 
         return false;
+    }
+
+    void setValue(const FrozenValue &other) const override {
+        other.setValueInto(*this);
+    }
+
+    void setValue(const Adapter &other) const override {
+        AssignHelper<AdapterType>()(m_value, other);
     }
 
 private:

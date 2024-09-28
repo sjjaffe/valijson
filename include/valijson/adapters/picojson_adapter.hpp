@@ -245,6 +245,7 @@ public:
         return new PicoJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -691,6 +692,11 @@ struct AdapterTraits<valijson::adapters::PicoJsonAdapter>
         return "PicoJsonAdapter";
     }
 };
+
+inline void PicoJsonFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(PicoJsonAdapter(m_value));
+}
 
 inline bool PicoJsonFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

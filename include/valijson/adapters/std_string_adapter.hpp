@@ -79,6 +79,7 @@ public:
         return new StdStringFrozenValue(value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -347,6 +348,9 @@ public:
         return true;
     }
 
+    void setValue(const FrozenValue &other) const override { }
+    void setValue(const Adapter &other) const override { }
+
 private:
     const std::string &m_value;
 };
@@ -481,6 +485,11 @@ struct AdapterTraits<valijson::adapters::StdStringAdapter>
         return "StdStringAdapter";
     }
 };
+
+inline void StdStringFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(StdStringAdapter(value));
+}
 
 inline bool StdStringFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

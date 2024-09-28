@@ -231,6 +231,7 @@ public:
         return new PropertyTreeFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -711,6 +712,11 @@ struct AdapterTraits<valijson::adapters::PropertyTreeAdapter>
         return "PropertyTreeAdapter";
     }
 };
+
+inline void PropertyTreeFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(PropertyTreeAdapter(m_value));
+}
 
 inline bool PropertyTreeFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

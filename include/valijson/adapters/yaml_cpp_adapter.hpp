@@ -232,6 +232,7 @@ class YamlCppFrozenValue : public FrozenValue
         return new YamlCppFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
   private:
@@ -652,6 +653,11 @@ template <> struct AdapterTraits<valijson::adapters::YamlCppAdapter>
         return "YamlCppAdapter";
     }
 };
+
+inline void YamlCppFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(YamlCppAdapter(m_value));
+}
 
 inline bool YamlCppFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

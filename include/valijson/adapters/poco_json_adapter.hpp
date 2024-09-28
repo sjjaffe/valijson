@@ -235,6 +235,7 @@ public:
         return new PocoJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     virtual bool equalTo(const Adapter &other, bool strict) const;
 
 private:
@@ -709,6 +710,11 @@ inline PocoJsonObjectMemberIterator PocoJsonObject::find(const std::string &prop
         return p.first == propertyName;
     });
     return it;
+}
+
+inline void PocoJsonFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(PocoJsonAdapter(m_value));
 }
 
 inline bool PocoJsonFrozenValue::equalTo(const Adapter &other, bool strict) const

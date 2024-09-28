@@ -46,6 +46,16 @@ public:
      */
     virtual bool equalTo(const Adapter &adapter, bool strict) const = 0;
 
+    /**
+     * @brief Transform this object into an Adapter, and use it as an
+     *        argument to call Adapter::setValue.
+     *
+     * Implementations of this function for mutable objects could perform
+     * a type check on the argument in order to use a copy-constructor
+     * directly instead of being clever.
+     */
+    virtual void setValueInto(const Adapter &adapter) const = 0;
+
 };
 
 }  // namespace adapters

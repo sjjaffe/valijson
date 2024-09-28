@@ -236,6 +236,7 @@ public:
         return new Json11FrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -675,6 +676,11 @@ struct AdapterTraits<valijson::adapters::Json11Adapter>
         return "Json11Adapter";
     }
 };
+
+inline void Json11FrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(Json11Adapter(m_value));
+}
 
 inline bool Json11FrozenValue::equalTo(const Adapter &other, bool strict) const
 {

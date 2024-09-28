@@ -428,6 +428,7 @@ public:
         return new NlohmannJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -694,6 +695,11 @@ struct AdapterTraits<valijson::adapters::NlohmannJsonAdapter>
         return "NlohmannJsonAdapter";
     }
 };
+
+inline void NlohmannJsonFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(NlohmannJsonAdapter(m_value));
+}
 
 inline bool NlohmannJsonFrozenValue::equalTo(const Adapter &other, bool strict) const
 {

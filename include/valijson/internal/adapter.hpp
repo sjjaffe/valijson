@@ -454,6 +454,28 @@ public:
      *          array, or an empty object.
      */
     virtual bool maybeString() const = 0;
+
+    /**
+     * @brief May set the json contained in this object to be equivalent to
+     *        the json argument.
+     *
+     * If either of the below preconditions is false, then this function
+     * is a no-op.
+     *
+     * @pre This Adapter is mutable
+     * @pre this->isNull() is true
+     *
+     * @param other A frozen JSON value. Transforms itself into an Adapter
+     */
+    virtual void setValue(const FrozenValue &other) const = 0;
+
+    /**
+     * @brief May set the json contained in this object to be equivalent to
+     *        the json argument.
+     * @see Adapter::setValue(const FrozenValue &) const
+     * @param other An Adapter wrapping the above FrozenValue
+     */
+    virtual void setValue(const Adapter &other) const = 0;
 };
 
 /**

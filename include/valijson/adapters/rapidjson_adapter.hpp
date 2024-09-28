@@ -298,6 +298,7 @@ public:
         return new GenericRapidJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -828,6 +829,12 @@ private:
     /// Iternal copy of the original RapidJson iterator
     typename ValueType::ConstMemberIterator m_itr;
 };
+
+template<class ValueType>
+inline void GenericRapidJsonFrozenValue<ValueType>::setValueInto(const Adapter &other) const
+{
+    return other.setValue(GenericRapidJsonAdapter<ValueType>(m_value));
+}
 
 template<class ValueType>
 inline bool GenericRapidJsonFrozenValue<ValueType>::equalTo(const Adapter &other, bool strict) const

@@ -237,6 +237,7 @@ public:
         return new BoostJsonFrozenValue(m_value);
     }
 
+    void setValueInto(const Adapter &other) const override;
     bool equalTo(const Adapter &other, bool strict) const override;
 
 private:
@@ -688,6 +689,11 @@ struct AdapterTraits<valijson::adapters::BoostJsonAdapter>
         return "BoostJsonAdapter";
     }
 };
+
+inline void BoostJsonFrozenValue::setValueInto(const Adapter &other) const
+{
+    return other.setValue(BoostJsonAdapter(m_value));
+}
 
 inline bool BoostJsonFrozenValue::equalTo(const Adapter &other, bool strict) const
 {
