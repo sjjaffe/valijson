@@ -139,6 +139,14 @@ public:
         m_constraints.push_back(constraint.clone(m_allocFn, m_freeFn));
     }
 
+    void setDefault(const std::shared_ptr<adapters::FrozenValue> &default_value)
+    {
+        m_default = default_value;
+    }
+
+    bool hasDefault() const { return m_default.get(); }
+    adapters::FrozenValue const &getDefault() const { return *m_default; }
+
     /**
      * @brief  Invoke a function on each child Constraint
      *
@@ -330,6 +338,8 @@ private:
 
     /// Title string associated with the schema (optional)
     opt::optional<std::string> m_title;
+
+    std::shared_ptr<adapters::FrozenValue> m_default;
 };
 
 } // namespace valijson

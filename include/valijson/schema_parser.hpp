@@ -659,6 +659,12 @@ private:
                             docCache, schemaCache), &subschema);
         }
 
+        if ((itr = object.find("default")) != object.end()) {
+            rootSchema.setSubschemaDefault(
+                    std::shared_ptr<adapters::FrozenValue>(itr->second.freeze()),
+                    &subschema);
+        }
+
         if ((itr = object.find("dependencies")) != object.end()) {
             rootSchema.addConstraintToSubschema(
                     makeDependenciesConstraint(rootSchema, rootNode,

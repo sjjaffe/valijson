@@ -123,6 +123,12 @@ public:
         mutableSubschema(subschema)->addConstraint(constraint);
     }
 
+    void setSubschemaDefault(std::shared_ptr<adapters::FrozenValue> ptr,
+            const Subschema *subschema)
+    {
+          mutableSubschema(subschema)->setDefault(ptr);
+    }
+
     /**
      * @brief  Create a new Subschema instance that is owned by this Schema
      *
