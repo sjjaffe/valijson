@@ -118,6 +118,7 @@ if(valijson_BUILD_TESTS)
         tests/test_json_pointer.cpp
         tests/test_json11_adapter.cpp
         tests/test_jsoncpp_adapter.cpp
+        tests/test_jsoncpp_mutable_adapter.cpp
         tests/test_nlohmann_json_adapter.cpp
         tests/test_rapidjson_adapter.cpp
         tests/test_picojson_adapter.cpp
