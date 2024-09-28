@@ -79,6 +79,10 @@ public:
             return false;
         }
 
+        if (subschema.hasDefault() && m_target.isNull()) {
+            m_target.setValue(subschema.getDefault());
+        }
+
         // Wrap the validationCallback() function below so that it will be
         // passed a reference to a constraint (_1), and a reference to the
         // visitor (*this).
