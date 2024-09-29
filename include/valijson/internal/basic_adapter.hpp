@@ -860,6 +860,17 @@ public:
         AssignHelper<AdapterType>()(m_value, other);
     }
 
+    /**
+     * @brief   Get access to the underlying value object, an optimization
+     *          for using the "default" schema when the types are compatible.
+     *
+     * @returns The value reference m_value - which should be mutable when this
+     *          function is called.
+     */
+    ValueType getValueHandle() const {
+        return m_value;
+    }
+
 private:
 
     const ValueType m_value;
